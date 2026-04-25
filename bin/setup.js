@@ -8,7 +8,7 @@
  *   npx github:bel-frontend/goman-live-skills
  */
 
-import { existsSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, writeFileSync, mkdirSync, readFileSync, appendFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 
 const SKILL_DIR = resolve(process.cwd(), '.agents/skills/goman-translations');
@@ -24,6 +24,7 @@ mkdirSync(SKILL_DIR, { recursive: true });
 
 const envPath = join(SKILL_DIR, '.env');
 const envExamplePath = join(SKILL_DIR, '.env.example');
+const gitignorePath = join(SKILL_DIR, '.gitignore');
 
 console.log(`\nFolder: ${SKILL_DIR}\n`);
 
@@ -33,6 +34,22 @@ for (const [path, label] of [[envExamplePath, '.env.example'], [envPath, '.env']
     } else {
         writeFileSync(path, ENV_CONTENT);
         console.log(`✓ Created ${label}`);
+    }
+}
+
+// Ensure .env is git-ignored
+const GITIGNORE_LINE = '.env';
+if (!existsSync(gitignorePath)) {
+    writeFileSync(gitignorePath, GITIGNORE_LINE + '\n');
+    console.log(`✓ Created .gitignore (with .env)`);
+} else {
+    const content = readFileSync(gitignorePath, 'utf8');
+    const hasEnv = content.split('\n').some((line) => line.trim() === GITIGNORE_LINE);
+    if (hasEnv) {
+        console.log(`○ .gitignore already ignores .env — skipped`);
+    } else {
+        appendFileSync(gitignorePath, (content.endsWith('\n') ? '' : '\n') + GITIGNORE_LINE + '\n');
+        console.log(`✓ Added .env to .gitignore`);
     }
 }
 
