@@ -1,5 +1,11 @@
 # Extended Workflows — goman Translations
 
+> **Always run scripts from the `scripts/` subfolder:**
+> ```bash
+> cd .agents/skills/goman-translations/scripts
+> ```
+> Every `node goman-*.js` command below assumes you're already there.
+
 ## Audit: Find Missing Translations
 
 Use when you need to know which keys lack translations for some languages.

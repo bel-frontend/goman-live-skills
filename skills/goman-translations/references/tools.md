@@ -1,8 +1,16 @@
 # Script Reference — goman.live
 
-All scripts are in `./scripts/`. Requires Node.js 18+.
+All scripts live in `<skill>/scripts/` (e.g. `.agents/skills/goman-translations/scripts/`).  
+Requires Node.js 18+.
 
-Credentials via env vars: `GOMAN_API_KEY`, `GOMAN_APP_ID`.
+**Always `cd` into the `scripts/` folder before running**, otherwise `node goman-*.js` will fail with "Cannot find module":
+
+```bash
+cd .agents/skills/goman-translations/scripts
+node goman-languages.js
+```
+
+Credentials are auto-loaded from `.env` in the parent skill folder — no need to export `GOMAN_API_KEY` / `GOMAN_APP_ID` manually.
 
 ---
 

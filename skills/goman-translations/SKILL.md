@@ -23,6 +23,23 @@ Then:
 
 **Do not run any scripts until `.env` exists and has real credentials.**
 
+## Running scripts
+
+All scripts live in the `scripts/` subfolder of this skill. Always `cd` into it first, then run with `node`:
+
+```bash
+cd <path-to-skill>/scripts
+node goman-languages.js
+```
+
+In one line:
+
+```bash
+cd .agents/skills/goman-translations/scripts && node goman-languages.js
+```
+
+The scripts auto-load `.env` from the parent skill folder — no need to set env vars manually.
+
 ## Available Scripts
 
 | Script | What it does | Example |
