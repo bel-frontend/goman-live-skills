@@ -96,17 +96,14 @@ Requires Node.js 18+. No extra dependencies.
 
 ### 1. Create `.env` in your project root
 
-```bash
-cp node_modules/goman-live-skills/.env.example .env  # if installed via npm
-# or create manually:
-```
-
 ```env
 GOMAN_API_KEY=your_api_key_here
 GOMAN_APP_ID=your_application_id_here
 ```
 
 Get both values from the goman.live dashboard → **Settings → API Keys**.
+
+A template is also available in `.env.example` in this repository.
 
 ### 2. Load env and run a script
 
