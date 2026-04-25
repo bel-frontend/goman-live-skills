@@ -16,6 +16,10 @@
 //   2. translations   - JSON object {"langCode": "value", ...}
 //   3. context        - (optional) hint for translators
 
+import { fileURLToPath } from 'node:url';
+import { join, dirname } from 'node:path';
+await import(join(dirname(fileURLToPath(import.meta.url)), '_env.js'));
+
 const API_BASE = process.env.GOMAN_API_URL || 'https://api.goman.live';
 const { GOMAN_API_KEY, GOMAN_APP_ID } = process.env;
 const [fullKey, translationsRaw, context] = process.argv.slice(2);

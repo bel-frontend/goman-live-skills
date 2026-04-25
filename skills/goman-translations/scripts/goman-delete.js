@@ -11,6 +11,10 @@
 // Usage:
 //   GOMAN_API_KEY=xxx GOMAN_APP_ID=yyy node goman-delete.js auth.login.button
 
+import { fileURLToPath } from 'node:url';
+import { join, dirname } from 'node:path';
+await import(join(dirname(fileURLToPath(import.meta.url)), '_env.js'));
+
 const API_BASE = process.env.GOMAN_API_URL || 'https://api.goman.live';
 const { GOMAN_API_KEY, GOMAN_APP_ID } = process.env;
 const fullKey = process.argv[2];
