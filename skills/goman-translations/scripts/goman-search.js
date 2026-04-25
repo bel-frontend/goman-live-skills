@@ -37,7 +37,7 @@ for (let i = 0; i < args.length; i += 2) {
   else params[flag] = value;
 }
 
-const url = new URL(`${API_BASE}/search-localizations-mcp`);
+const url = new URL(`${API_BASE}/localizations-list-mcp`);
 Object.entries(params).forEach(([k, v]) => v && url.searchParams.set(k, v));
 
 const res = await fetch(url.toString(), {
