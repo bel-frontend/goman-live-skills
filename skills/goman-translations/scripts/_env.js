@@ -1,9 +1,12 @@
-// Loads .env from the project root (process.cwd()) if present.
+// Loads .env from the goman-translations skill folder (one level up from scripts/).
+// Path: scripts/../.env → e.g. .agents/skills/goman-translations/.env
 // No external dependencies — pure Node.js fs.
 import { readFileSync, existsSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { join, dirname } from 'node:path';
 
-const envPath = join(process.cwd(), '.env');
+const skillDir = dirname(dirname(fileURLToPath(import.meta.url)));
+const envPath = join(skillDir, '.env');
 
 if (existsSync(envPath)) {
   const lines = readFileSync(envPath, 'utf8').split('\n');

@@ -10,9 +10,9 @@ Translation management for multi-language apps via the goman.live API.
 
 ## First-time setup (run once before anything else)
 
-**Check if `.env` exists in the project root.**
+**Check if `.env` exists next to this `SKILL.md` file** (i.e. in the `goman-translations/` skill folder).
 
-If it does NOT exist — create it right now:
+If it does NOT exist — create it right there:
 
 ```
 GOMAN_API_KEY=your_api_key_here
