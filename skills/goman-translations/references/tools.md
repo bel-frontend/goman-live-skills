@@ -1,81 +1,104 @@
-# MCP Tool Reference — goman.live
+# Script Reference — goman.live
 
-## `get_active_languages`
+All scripts are in `./scripts/`. Requires Node.js 18+.
+
+Credentials via env vars: `GOMAN_API_KEY`, `GOMAN_APP_ID`.
+
+---
+
+## `goman-languages.js`
 
 **Call this first** before any translation work.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `langCode` | string | No | Check if a specific language is active (e.g. `"en"`) |
-| `detailed` | boolean | No | Return full metadata per language |
+```bash
+node goman-languages.js
+```
 
-**Returns:** List of active language codes with names.  
-Example: `"en (English), be (Belarusian)"`
+**Returns:** JSON array of active language objects with `langCode` and `langName`.  
+Example: `[{"langCode":"en","langName":"English"},{"langCode":"be","langName":"Belarusian"}]`
 
 ---
 
-## `get_namespaces`
+## `goman-namespaces.js`
 
 List all translation namespaces in the application.
 
-No parameters required.
+```bash
+node goman-namespaces.js
+```
 
-**Returns:** Sorted list of namespace strings.  
-Example: `["auth", "common", "screens.home", "screens.login"]`
+**Returns:** JSON array of namespace strings.  
+Example: `["auth","common","screens.home","screens.login"]`
 
 ---
 
-## `get_localization_exists`
+## `goman-get.js`
 
 Check if a key exists and get its current translations.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `fullKey` | string | Yes | Dotted key, e.g. `"auth.login.button"` |
+```bash
+node goman-get.js <fullKey>
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `fullKey` | Yes | Dotted key, e.g. `auth.login.button` |
 
 **Returns:** All existing translations for this key, or empty if not found.
 
 ---
 
-## `search_localizations`
+## `goman-search.js`
 
 Search and list translations with filtering and pagination.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `namespace` | string | — | Filter by namespace |
-| `search` | string | — | Search in keys or translation values |
-| `page` | number | 1 | Page number |
-| `limit` | number | 20 | Results per page (max 100) |
+```bash
+node goman-search.js [--namespace X] [--query Q] [--page N] [--limit N]
+```
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--namespace` | — | Filter by namespace |
+| `--query` | — | Search in keys or translation values |
+| `--page` | 1 | Page number |
+| `--limit` | 20 | Results per page (max 100) |
 
 **Returns:** Paginated list of translation keys with values.
 
 ---
 
-## `create_localization`
+## `goman-create.js`
 
 Add new translations or update existing ones.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `fullKey` | string | Yes | Dotted key, e.g. `"auth.login.button"` |
-| `translations` | object | Yes | `{ "en": "Log In", "be": "Увайсці" }` |
-| `context` | string | Recommended | Where/how this text is used — helps translators |
+```bash
+node goman-create.js <fullKey> <translationsJSON> [context]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `fullKey` | Yes | Dotted key, e.g. `auth.login.button` |
+| `translationsJSON` | Yes | JSON object: `'{"en":"Log In","be":"Увайсці"}'` |
+| `context` | Recommended | Where/how this text is used — helps translators |
 
 **Behavior:** Creates if missing, overwrites if exists.  
-⚠️ Only use language codes returned by `get_active_languages`.
+⚠️ Only use language codes returned by `goman-languages.js`.
 
 ---
 
-## `delete_localization`
+## `goman-delete.js`
 
 ⚠️ **DESTRUCTIVE — cannot be undone.**
 
 Permanently removes all translations for a key across ALL languages.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `fullKey` | string | Yes | Dotted key, e.g. `"auth.login.button"` |
+```bash
+node goman-delete.js <fullKey>
+```
 
-**Always** ask for explicit confirmation before calling.  
-**Always** call `get_localization_exists` first to show the user what will be deleted.
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `fullKey` | Yes | Dotted key, e.g. `auth.login.button` |
+
+**Always** ask for explicit confirmation before running.  
+**Always** run `goman-get.js` first to show the user what will be deleted.

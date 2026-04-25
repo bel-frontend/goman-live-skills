@@ -5,15 +5,15 @@
 Use when you need to know which keys lack translations for some languages.
 
 ```
-STEP 1: get_active_languages
+STEP 1: node goman-languages.js
         → store all active language codes
 
-STEP 2: get_namespaces
+STEP 2: node goman-namespaces.js
         → list namespaces to audit (ask user to pick, or audit all)
 
 STEP 3: For each namespace:
-        search_localizations(namespace=..., limit=100)
-        → repeat with page++ until all results fetched
+        node goman-search.js --namespace X --limit 100
+        → repeat with --page N until all results fetched
 
 STEP 4: For each key, check if all active language codes are present
         → collect keys missing one or more languages
@@ -24,21 +24,21 @@ STEP 5: Report:
          - common.cancel    — missing: en, be"
 
 STEP 6: Ask: "Should I fill the missing translations?"
-        → if yes: create_localization for missing languages only
+        → if yes: node goman-create.js for missing languages only
 ```
 
 ---
 
 ## Rename / Move a Key
 
-MCP has no rename tool — must delete and recreate.
+There is no rename operation — must delete and recreate.
 
 ```
-STEP 1: get_localization_exists(oldKey)   → fetch existing translations
+STEP 1: node goman-get.js <oldKey>        → fetch existing translations
 STEP 2: Show user the current values
 STEP 3: Ask: "Confirm rename from 'X' to 'Y'? This will DELETE the old key."
-STEP 4: create_localization(newKey, same translations, same context)
-STEP 5: delete_localization(oldKey)       → only after create succeeds
+STEP 4: node goman-create.js <newKey> <same-json> <same-context>
+STEP 5: node goman-delete.js <oldKey>     → only after create succeeds
 STEP 6: Show updated code snippet
 ```
 
@@ -49,12 +49,12 @@ STEP 6: Show updated code snippet
 When user provides a JSON object of `{ key: { lang: value } }`:
 
 ```
-STEP 1: get_active_languages
+STEP 1: node goman-languages.js
 STEP 2: Parse the JSON — validate fullKey format (must contain dot)
 STEP 3: Show summary: "I will create X keys. Preview: ..."
 STEP 4: Ask for confirmation
-STEP 5: Loop create_localization for each key
-        → only use language codes from get_active_languages
+STEP 5: Loop node goman-create.js for each key
+        → only use language codes from step 1
 STEP 6: Report created / skipped / errors
 ```
 
@@ -72,7 +72,7 @@ STEP 2: For each file:
           (labels, placeholders, titles, errors, tooltips, alt text)
         - SKIP: console.log, comments, variable names, URLs, CSS classes
 
-STEP 3: get_active_languages
+STEP 3: node goman-languages.js
 
 STEP 4: Generate key plan across all files:
         - Use file name (without extension) as namespace prefix
@@ -87,7 +87,7 @@ STEP 4: Generate key plan across all files:
 
 STEP 5: Ask: "Should I proceed with all X keys?"
 
-STEP 6: Batch create_localization — one call per key, all active languages
+STEP 6: node goman-create.js for each key — all active languages at once
         Progress: "Creating key X of Y..."
 
 STEP 7: For each file, show replacement snippets:
@@ -102,9 +102,9 @@ STEP 7: For each file, show replacement snippets:
 Always check before creating to avoid accidental overwrites:
 
 ```
-STEP 1: get_localization_exists(fullKey)
-        → if exists: show current values, ask "Update?" 
+STEP 1: node goman-get.js <fullKey>
+        → if exists: show current values, ask "Update?"
         → if missing: proceed to create
 
-STEP 2: create_localization(fullKey, translations, context)
+STEP 2: node goman-create.js <fullKey> <json> <context>
 ```
