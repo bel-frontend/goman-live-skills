@@ -28,13 +28,13 @@ npx skills add bel-frontend/goman-live-skills -g
 
 ### 2. Set up credentials
 
-After copying, run this once in your project root:
+From your project root, run:
 
 ```bash
 npx github:bel-frontend/goman-live-skills
 ```
 
-This creates `.env` and `.env.example`. Fill in your credentials:
+This creates `.env` and `.env.example` inside `.agents/skills/goman-translations/` (next to `SKILL.md`). Open the `.env` and fill in your credentials:
 
 ```env
 GOMAN_API_KEY=your_api_key_here
@@ -56,7 +56,7 @@ Once installed and `.env` is filled in, ask your agent:
 ## How it works
 
 The skill includes Node.js scripts that call the goman.live API directly.  
-The agent reads `.env` from your project root automatically — no manual `export` needed.
+Each script auto-loads `.env` from the skill folder (`.agents/skills/goman-translations/.env`) — no manual `export` needed.
 
 ```
 You → AI agent chat
@@ -70,7 +70,11 @@ You → AI agent chat
 
 ## Scripts
 
-The agent runs these automatically. You can also run them manually:
+The agent runs these automatically. To run them manually, `cd` into the scripts folder first:
+
+```bash
+cd .agents/skills/goman-translations/scripts
+```
 
 | Script | What it does | Example |
 |--------|-------------|---------|
@@ -83,13 +87,24 @@ The agent runs these automatically. You can also run them manually:
 
 ## Skill File Structure
 
+After installation:
+
 ```
-skills/goman-translations/
-├── SKILL.md          ← loaded by the agent on-demand
-├── scripts/          ← Node.js scripts called by the agent
-└── references/
-    ├── tools.md      ← script reference with all parameters
-    └── workflows.md  ← extended workflow scenarios
+<your-project>/
+└── .agents/skills/goman-translations/
+    ├── SKILL.md          ← loaded by the agent on-demand
+    ├── .env              ← your credentials (created by setup)
+    ├── scripts/          ← Node.js scripts called by the agent
+    │   ├── _env.js       ← auto-loads .env from this folder
+    │   ├── goman-languages.js
+    │   ├── goman-namespaces.js
+    │   ├── goman-get.js
+    │   ├── goman-search.js
+    │   ├── goman-create.js
+    │   └── goman-delete.js
+    └── references/
+        ├── tools.md      ← script reference with all parameters
+        └── workflows.md  ← extended workflow scenarios
 ```
 
 ## License

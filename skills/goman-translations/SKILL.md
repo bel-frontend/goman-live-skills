@@ -10,22 +10,18 @@ Translation management for multi-language apps via the goman.live API.
 
 ## First-time setup (run once before anything else)
 
-**Check if `.env` exists next to this `SKILL.md` file** (i.e. in the `goman-translations/` skill folder).
+**Check if `.env` exists next to this `SKILL.md` file** (same folder).
 
-If it does NOT exist — create it right there:
+If it does NOT exist, tell the user to run this from their project root:
 
+```bash
+npx github:bel-frontend/goman-live-skills
 ```
-GOMAN_API_KEY=your_api_key_here
-GOMAN_APP_ID=your_application_id_here
-```
 
-Then tell the user:
-> `.env` created. Please fill in `GOMAN_API_KEY` and `GOMAN_APP_ID` with values from the goman.live dashboard → Settings → API Keys, then ask me to continue.
+Then:
+> Run the command above to create `.env`, fill in `GOMAN_API_KEY` and `GOMAN_APP_ID` from goman.live dashboard → Settings → API Keys, then ask me to continue.
 
-**Do not run any scripts until the user confirms credentials are filled in.**
-
-
-Get both values from the goman.live dashboard → **Settings → API Keys**.
+**Do not run any scripts until `.env` exists and has real credentials.**
 
 ## Available Scripts
 
