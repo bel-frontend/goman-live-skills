@@ -31,7 +31,7 @@ npx skills add bel-frontend/goman-live-skills -g
 After copying, run this once in your project root:
 
 ```bash
-npx goman-live-skills
+npx github:bel-frontend/goman-live-skills
 ```
 
 This creates `.env` and `.env.example`. Fill in your credentials:
