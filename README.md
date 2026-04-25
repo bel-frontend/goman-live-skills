@@ -89,6 +89,54 @@ Run `npx goman-live-skills --mcp` or add manually:
 
 Get your API key and Application ID from the goman.live dashboard → **Settings → API Keys**.
 
+## Scripts (no MCP required)
+
+If you prefer not to use MCP, the skill includes Node.js scripts that call the API directly.  
+Requires Node.js 18+. No extra dependencies.
+
+### 1. Create `.env` in your project root
+
+```bash
+cp node_modules/goman-live-skills/.env.example .env  # if installed via npm
+# or create manually:
+```
+
+```env
+GOMAN_API_KEY=your_api_key_here
+GOMAN_APP_ID=your_application_id_here
+```
+
+Get both values from the goman.live dashboard → **Settings → API Keys**.
+
+### 2. Load env and run a script
+
+```bash
+# load .env and run
+export $(cat .env | xargs) && node skills/goman-translations/scripts/goman-languages.js
+
+# or with dotenv-cli
+npx dotenv -e .env -- node skills/goman-translations/scripts/goman-languages.js
+```
+
+Or set the variables inline for a quick test:
+
+```bash
+GOMAN_API_KEY=xxx GOMAN_APP_ID=yyy node skills/goman-translations/scripts/goman-get.js auth.login.button
+```
+
+### Available scripts
+
+| Script | What it does | Example |
+|--------|-------------|---------|
+| `goman-languages.js` | List active language codes | `node goman-languages.js` |
+| `goman-namespaces.js` | List translation namespaces | `node goman-namespaces.js` |
+| `goman-get.js <fullKey>` | Get translations for a key | `node goman-get.js auth.login.button` |
+| `goman-search.js [opts]` | Search/filter translations | `node goman-search.js --namespace auth --query button` |
+| `goman-create.js <fullKey> <json> [ctx]` | Add or update translations | `node goman-create.js auth.login.button '{"en":"Log in"}' "Login button"` |
+| `goman-delete.js <fullKey>` | ⚠️ Delete a key permanently | `node goman-delete.js auth.login.button` |
+
+The AI agent will use these scripts automatically when the MCP server is not connected.
+
 ## Available MCP Tools
 
 | Tool | Description |
