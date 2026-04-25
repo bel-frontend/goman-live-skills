@@ -1,0 +1,34 @@
+{
+    "name": "goman-live-skills",
+    "version": "0.1.0",
+    "description": "VS Code Copilot skill for managing app translations with goman.live",
+    "type": "module",
+    "main": "index.js",
+    "bin": {
+        "goman-live-skills": "./bin/setup.js"
+    },
+    "scripts": {
+        "test": "echo \"No tests yet\""
+    },
+    "keywords": [
+        "goman",
+        "translations",
+        "i18n",
+        "localization",
+        "copilot",
+        "vscode",
+        "skill",
+        "mcp"
+    ],
+    "author": "goman.live",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/goman-live/skills.git"
+    },
+    "files": [
+        "bin/",
+        "skills/",
+        "index.js"
+    ]
+}
