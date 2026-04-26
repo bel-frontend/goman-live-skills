@@ -1,7 +1,7 @@
 {
     "name": "goman-live-skills",
     "version": "0.1.0",
-    "description": "VS Code Copilot skill for managing app translations with goman.live",
+    "description": "AI agent skill for managing app translations with goman.live",
     "type": "module",
     "main": "index.js",
     "bin": {

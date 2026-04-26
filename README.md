@@ -34,7 +34,7 @@ From your project root, run:
 npx github:bel-frontend/goman-live-skills
 ```
 
-This creates `.env` and `.env.example` inside `.agents/skills/goman-translations/` (next to `SKILL.md`). Open the `.env` and fill in your credentials:
+This creates `.env`, `.env.example`, and `.gitignore` inside `.agents/skills/goman-translations/` (next to `SKILL.md`). Open the `.env` and fill in your credentials:
 
 ```env
 GOMAN_API_KEY=your_api_key_here
@@ -94,6 +94,9 @@ After installation:
 └── .agents/skills/goman-translations/
     ├── SKILL.md          ← loaded by the agent on-demand
     ├── .env              ← your credentials (created by setup)
+    ├── .env.example      ← credential template
+    ├── .gitignore        ← keeps .env out of git (created by setup)
+    ├── package.json      ← marks folder as ESM module
     ├── scripts/          ← Node.js scripts called by the agent
     │   ├── _env.js       ← auto-loads .env from this folder
     │   ├── goman-languages.js
